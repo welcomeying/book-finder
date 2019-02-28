@@ -13,21 +13,20 @@ class App extends Component {
 
   handleInputChange = () => {
     this.setState({
-      query: this.search.value
+      query: this.search.value.replace(" ","+")
     });
   }
 
-  componentDidMount() {
-    let url = "https://www.googleapis.com/books/v1/volumes?q=" + this.state.query + "+intitle";
-    console.log(this.state.url);
-    fetch(this.state.url)
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.query !== prevState.query) {
+      console.log(this.state.query);
+      fetch("https://www.googleapis.com/books/v1/volumes?q=" + this.state.query + "+intitle")
       .then(res => res.json())
       .then(
         (result) => {
           this.setState({
             isLoaded: true,
-            items: result.items,
-            books: result.items.map(item => <Cards bookTitle={item.volumeInfo.title}/>)
+            items: result.items
           });
         },
         // Note: it's important to handle errors here
@@ -40,45 +39,44 @@ class App extends Component {
           });
         }
       )
+    }
   }
 
-
-
   render() {
+    let bookCards;
+    let imageLinks;
     if (this.state.query && this.state.items) {
-      return (
-        <div className="App">
-          <header>
-            BOOK FINDER
-          </header>
-          <div className='search-input'>
-            <input type='text' name='SearchInput' ref={input => this.search = input} onChange={this.handleInputChange} />
-            <button onClick={this.handleInputChange}>Search</button>
-          </div>
-          {this.state.items.map(item => 
-            <Cards key={item.id} 
-                  bookTitle={item.volumeInfo.title} 
-                  bookAuthor={item.volumeInfo.authors}
-                  bookPublisher={item.volumeInfo.publisher}
-                  bookLink={item.volumeInfo.previewLink}
-                    />)}
-        </div>
-      );
+      bookCards = this.state.items.map(item => 
+                  <Cards key={item.id} 
+                        bookTitle={item.volumeInfo.title} 
+                        bookAuthor={item.volumeInfo.authors}
+                        bookPublisher={item.volumeInfo.publisher}
+                        bookLink={item.volumeInfo.previewLink}
+                        imageLink={item.volumeInfo.hasOwnProperty('imageLinks')?
+                          item.volumeInfo.imageLinks.smallThumbnail : 
+                          'http://lgimages.s3.amazonaws.com/nc-md.gif'}
+                  />);
+    }
+    else if (this.state.query && !this.state.items) {
+      bookCards = 'No Book Found - Try Another Query';
     }
     else {
-      return (
-        <div className="App">
-          <header>
-            BOOK FINDER
-          </header>
-          <div className='search-input'>
-            <input type='text' name='SearchInput' ref={input => this.search = input} />
-            <button onClick={this.handleInputChange}>Search</button>
-          </div>
-          No Books Found
-        </div>
-      );
+      bookCards = 'Nothing Here Yet - Try Searching For A Book';
     }
+    return (
+      <div className="App">
+        <header>
+          BOOK FINDER
+        </header>
+        <div className='search-input'>
+          <input type='text' name='SearchInput' 
+          placeholder='Search by book title or author...' 
+          ref={input => this.search = input} />
+          <button onClick={this.handleInputChange}>Search</button>
+        </div>
+        {bookCards}
+      </div>
+    );
   }
 }
 
