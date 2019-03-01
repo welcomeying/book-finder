@@ -7,25 +7,20 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      query: "",
+      initialState: true
     };
   }
 
   handleInputChange = () => {
-    this.setState({
-      query: this.search.value.replace(" ","+")
-    });
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    if (this.state.query !== prevState.query) {
-      console.log(this.state.query);
-      fetch("https://www.googleapis.com/books/v1/volumes?q=" + this.state.query + "+intitle")
+    let query = this.search.value.replace(" ","+")
+    if (query){
+      fetch(`https://www.googleapis.com/books/v1/volumes?q=${query}`)
       .then(res => res.json())
       .then(
         (result) => {
           this.setState({
             isLoaded: true,
+            initialState: false,
             items: result.items
           });
         },
@@ -42,10 +37,18 @@ class App extends Component {
     }
   }
 
+  emptyResults = () => {
+    this.state = {
+      initialState: true
+    }
+  }
+
   render() {
     let bookCards;
-    let imageLinks;
-    if (this.state.query && this.state.items) {
+    if (this.state.initialState) {
+      bookCards = 'Nothing Here Yet - Try Searching For A Book';
+    }
+    else if (this.state.items) {
       bookCards = this.state.items.map(item => 
                   <Cards key={item.id} 
                         bookTitle={item.volumeInfo.title} 
@@ -57,11 +60,8 @@ class App extends Component {
                           'http://lgimages.s3.amazonaws.com/nc-md.gif'}
                   />);
     }
-    else if (this.state.query && !this.state.items) {
-      bookCards = 'No Book Found - Try Another Query';
-    }
     else {
-      bookCards = 'Nothing Here Yet - Try Searching For A Book';
+      bookCards = 'No Book Found - Try Another Query';
     }
     return (
       <div className="App">
@@ -69,7 +69,7 @@ class App extends Component {
           BOOK FINDER
         </header>
         <div className='search-input'>
-          <input type='text' name='SearchInput' 
+          <input type='search' name='SearchInput' 
           placeholder='Search by book title or author...' 
           ref={input => this.search = input} />
           <button onClick={this.handleInputChange}>Search</button>
