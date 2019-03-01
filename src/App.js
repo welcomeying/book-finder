@@ -10,7 +10,7 @@ class App extends Component {
   }
 
   handleInputChange = () => {
-    let query = this.search.value.replace(" ","+")
+    let query = this.search.value.replace(' ','+')
     if (query){
       fetch(`https://www.googleapis.com/books/v1/volumes?q=${query}`)
       .then(res => res.json())
@@ -35,8 +35,14 @@ class App extends Component {
     }
   }
 
+  _handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      this.handleInputChange();
+    }
+  }
+
   emptyResults = () => {
-    this.state = {
+    this.setState = {
       initialState: true
     }
   }
@@ -48,7 +54,7 @@ class App extends Component {
     }
     else if (this.state.items) {
       bookCards = this.state.items.map(item => 
-                  <Cards key={item.id} 
+                  <Cards bookId={item.id} 
                         bookTitle={item.volumeInfo.title} 
                         bookAuthor={item.volumeInfo.authors}
                         bookPublisher={item.volumeInfo.publisher}
@@ -62,38 +68,37 @@ class App extends Component {
       bookCards = 'No Book Found - Try Another Query';
     }
     return (
-      <div className="App">
+      <div className='App'>
         <header>
           BOOK FINDER
         </header>
         <div className='search-input'>
           <input type='search' name='SearchInput' 
           placeholder='Search by book title or author...' 
-          ref={input => this.search = input} />
+          ref={input => this.search = input}
+          onKeyPress={this._handleKeyPress} />
           <button onClick={this.handleInputChange}>Search</button>
         </div>
-        {bookCards}
+        <div className='book-display'>
+          {bookCards}
+        </div>
       </div>
     );
   }
 }
 
 class Cards extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-
-    };
-
-  }
   render() {
     return (
-      <div className="book-cards">
-        <img src={this.props.imageLink} alt='book'/><br/>
-        {this.props.bookTitle}<br/>
-        {this.props.bookAuthor}<br/>
-        {this.props.bookpublisher}<br/>
-        <a href={this.props.bookLink} target='_blank' rel="noopener noreferrer">Book link</a>
+      <div className='book-card' key={this.props.bookId}>
+        <img className='book-img' src={this.props.imageLink} alt={this.props.bookTitle} />
+        <div className='book-info'>
+          <div className='book-title'>{this.props.bookTitle}</div>
+          <div className='book-author'>By: {this.props.bookAuthor}</div>
+          <div className='book-publisher'>Published By: {this.props.bookPublisher}</div>
+          <a href={this.props.bookLink} target='_blank' rel='noopener noreferrer'>
+          <button className='book-link'>See this Book</button></a>
+        </div>  
       </div>
     );
   }
