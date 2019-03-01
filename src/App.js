@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
 
-const API_KEY = process.env.REACT_APP_API_KEY;
-
 class App extends Component {
   constructor(props) {
     super(props);
