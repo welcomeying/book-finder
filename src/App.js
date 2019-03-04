@@ -54,7 +54,7 @@ class App extends Component {
     }
     else if (this.state.items) {
       bookCards = this.state.items.map(item => 
-                  <Cards bookId={item.id} 
+                  <Cards key={item.id} 
                         bookTitle={item.volumeInfo.title} 
                         bookAuthor={item.volumeInfo.authors}
                         bookPublisher={item.volumeInfo.publisher}
@@ -72,12 +72,12 @@ class App extends Component {
         <header>
           BOOK FINDER
         </header>
-        <div className='search-input'>
-          <input type='search' name='SearchInput' 
+        <div>
+          <input className='search-input' type='search' name='SearchInput' 
           placeholder='Search by book title or author...' 
           ref={input => this.search = input}
           onKeyPress={this._handleKeyPress} />
-          <button onClick={this.handleInputChange}>Search</button>
+          <button className='search-btn' onClick={this.handleInputChange}>Search</button>
         </div>
         <div className='book-display'>
           {bookCards}
@@ -90,7 +90,7 @@ class App extends Component {
 class Cards extends Component {
   render() {
     return (
-      <div className='book-card' key={this.props.bookId}>
+      <div className='book-card'>
         <img className='book-img' src={this.props.imageLink} alt={this.props.bookTitle} />
         <div className='book-info'>
           <div className='book-title'>{this.props.bookTitle}</div>
