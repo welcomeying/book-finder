@@ -12,7 +12,7 @@ class App extends Component {
   handleInputChange = () => {
     let query = this.search.value.replace(' ','+')
     if (query){
-      fetch(`https://www.googleapis.com/books/v1/volumes?q=${query}`)
+      fetch(`https://www.googleapis.com/books/v1/volumes?q=${query}&maxResults=20`)
       .then(res => res.json())
       .then(
         (result) => {
@@ -56,8 +56,10 @@ class App extends Component {
       bookCards = this.state.items.map(item => 
                   <Cards key={item.id} 
                         bookTitle={item.volumeInfo.title} 
-                        bookAuthor={item.volumeInfo.authors}
-                        bookPublisher={item.volumeInfo.publisher}
+                        bookAuthor={item.volumeInfo.hasOwnProperty('authors')?
+                          item.volumeInfo.authors.join(', ') : 'Unknown'}
+                        bookPublisher={item.volumeInfo.hasOwnProperty('publisher')?
+                          item.volumeInfo.publisher: 'Unknown'}
                         bookLink={item.volumeInfo.previewLink}
                         imageLink={item.volumeInfo.hasOwnProperty('imageLinks')?
                           item.volumeInfo.imageLinks.smallThumbnail : 
