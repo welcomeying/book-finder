@@ -1,14 +1,21 @@
 # Book Finder with Google Book API [(LIVE)](https://welcomeying.github.io/book-finder/)
-The project is part of chingu | Voyage-8
 
-### OBJECTIVES
-Create an application that allows you to use the Google Books API to search for books. You may need to signup with google to get a API key; read the documentation for more information.
+An application that helps you find book's preview, and a link redirect you to the book's entry on Google Books. It fetches search results from Google books API. The project is part of chingu | Voyage-8
 
-### REQUIREMENTS
-This application should allow you to:
+### Features and Functionalities
+1. This application allows you to:
 - Enter a query in a search box
 - Display a list of books matching the given query.
-- Each item in the list should include the book's author, title, and publishing company, as well as a picture of the book.
-- From each list item, you should also be able to navigate to more information about the book, but this information does not necessarily need to appear on a page within your application. In other words, this could link out to an external site with more information about that particular book.
+- Each item in the list includes the book's author, title, and publishing company, as well as a picture of the book.
+- From each list item, you are also be able to navigate to more information about the book via a link to Google Books.
+2. It is mobile responsive.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).   
+### Code Dependencies
+The application is built with the following code dependencies:
+- [React](https://github.com/facebook/React)
+- This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+- [Google Books API](https://developers.google.com/books/)
+
+### License
+This project is licensed under the MIT License - see the [LICENSE](https://github.com/welcomeying/book-finder/blob/master/LICENSE) file for details.
+   
