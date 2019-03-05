@@ -7,22 +7,25 @@ class App extends Component {
     this.state = {
       error: null,
       initialState: true,
-      loading: false
+      loading: false,
+      emptyStr: false,
+      items: null
     };
   }
 
   handleInputChange = () => {
     this.setState({
-      loading: true
+      initialState: false,
+      loading: true,
+      emptyStr: false
     })
-    let query = this.search.value.replace(' ','+')
+    let query = this.search.value.trim().replace(' ','+')
     if (query){
       fetch(`https://www.googleapis.com/books/v1/volumes?q=${query}&maxResults=20`)
       .then(res => res.json())
       .then(
         (result) => {
           this.setState({
-            initialState: false,
             items: result.items,
             loading: false
           });
@@ -37,6 +40,13 @@ class App extends Component {
           });
         }
       )
+    }
+    else {
+      this.setState({
+        emptyStr: true,
+        loading: false,
+        items: null
+      })
     }
   }
 
@@ -71,10 +81,10 @@ class App extends Component {
                         bookLink={item.volumeInfo.previewLink}
                         imageLink={item.volumeInfo.hasOwnProperty('imageLinks')?
                           item.volumeInfo.imageLinks.smallThumbnail : 
-                          'http://lgimages.s3.amazonaws.com/nc-md.gif'}
+                          './img/cover.jpeg'}
                   />);
     }
-    else {
+    else if (!this.state.items && !this.state.loading) {
       bookCards = 'No Book Found - Try Another Query';
     }
     return (
@@ -89,7 +99,8 @@ class App extends Component {
           onKeyPress={this._handleKeyPress} />
           <button className='search-btn' onClick={this.handleInputChange}>Search</button>
         </div>
-        {this.state.loading && <div>Loading...</div>}
+        {this.state.emptyStr && <div className='error'>Please provide a valid search query!</div>}
+        {this.state.loading && <img src='./img/loading.gif' className='loading-img' />}
         <div className='book-display'>
           {bookCards}
         </div>
