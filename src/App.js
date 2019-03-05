@@ -5,11 +5,16 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      initialState: true
+      error: null,
+      initialState: true,
+      loading: false
     };
   }
 
   handleInputChange = () => {
+    this.setState({
+      loading: true
+    })
     let query = this.search.value.replace(' ','+')
     if (query){
       fetch(`https://www.googleapis.com/books/v1/volumes?q=${query}&maxResults=20`)
@@ -17,9 +22,9 @@ class App extends Component {
       .then(
         (result) => {
           this.setState({
-            isLoaded: true,
             initialState: false,
-            items: result.items
+            items: result.items,
+            loading: false
           });
         },
         // Note: it's important to handle errors here
@@ -27,7 +32,7 @@ class App extends Component {
         // exceptions from actual bugs in components.
         (error) => {
           this.setState({
-            isLoaded: true,
+            loading: false,
             error
           });
         }
@@ -49,7 +54,10 @@ class App extends Component {
 
   render() {
     let bookCards;
-    if (this.state.initialState) {
+    if (this.state.error) {
+      bookCards = <div className='error'> Error: Cannot fetch data from Google Books!</div>
+    }
+    else if (this.state.initialState) {
       bookCards = 'Nothing Here Yet - Try Searching For A Book';
     }
     else if (this.state.items) {
@@ -81,6 +89,7 @@ class App extends Component {
           onKeyPress={this._handleKeyPress} />
           <button className='search-btn' onClick={this.handleInputChange}>Search</button>
         </div>
+        {this.state.loading && <div>Loading...</div>}
         <div className='book-display'>
           {bookCards}
         </div>
