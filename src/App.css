@@ -52,7 +52,7 @@ input[type=search]::-webkit-search-cancel-button {
 
 .book-card {
 	position: relative;
-	width: 380px;
+	width: 390px;
 	height: 200px;
 	margin: 10px;
 	text-align: left;
@@ -60,15 +60,18 @@ input[type=search]::-webkit-search-cancel-button {
 	box-shadow: 2px 2px 4px 0 #ccc;
 }
 
-.book-img {
-	position: absolute;
-	width: 140px;
-    height: 200px;
+.book-img { 
+	vertical-align: middle; 
+	width: 120px;
+    height: 170px;
+    margin: 10px;
+    box-shadow: 5px 5px 20px #333;
 }
 
 .book-info {
 	position: absolute;
-	left: 150px;
+	top: 0;
+	left: 160px;
 	width: 210px;
 	padding: 5px;
 	font-size: 13px;
@@ -98,10 +101,13 @@ input[type=search]::-webkit-search-cancel-button {
 	border-radius: 10px;
 }
 
+.book-link:hover{
+	background: #00aaff;
+}
+
 button {
 	background: #0088cc;
 	color: #ffffff;
 	font-weight: 500;
 	cursor: pointer;
 }
-

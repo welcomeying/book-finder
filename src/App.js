@@ -113,7 +113,9 @@ class Cards extends Component {
   render() {
     return (
       <div className='book-card'>
-        <img className='book-img' src={this.props.imageLink} alt={this.props.bookTitle} />
+        <div className='book-cover'>
+          <img className='book-img' src={this.props.imageLink} alt={this.props.bookTitle} />
+        </div>
         <div className='book-info'>
           <div className='book-title'>{this.props.bookTitle}</div>
           <div className='book-author'>By: {this.props.bookAuthor}</div>
