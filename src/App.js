@@ -62,7 +62,7 @@ class App extends Component {
       initialState: true
     }
   }
-  
+
   render() {
     let bookCards;
     if (this.state.error) {
@@ -97,7 +97,7 @@ class App extends Component {
           <input className='search-input' type='search' name='SearchInput' 
           placeholder='Search by book title or author...' 
           ref={input => this.search = input}
-          onKeyPress={this._handleKeyPress} onChange={this.handleInputChange}/>
+          onKeyPress={this._handleKeyPress} />
           <button className='search-btn' onClick={this.handleInputChange}>Search</button>
         </div>
         {this.state.emptyStr && <div className='error'>Please provide a valid search query!</div>}
