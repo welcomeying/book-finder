@@ -111,3 +111,11 @@ button {
 	font-weight: 500;
 	cursor: pointer;
 }
+
+.save-book {
+	position: absolute;
+	top: 10px;
+	left: 355px;
+	font-size: 20px;
+	cursor: pointer;
+}
