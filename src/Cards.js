@@ -11,30 +11,54 @@ class Cards extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      saved: false,
+      saved: this.props.saved,
       savedBooks: localBookshelf
     };
   }
-  handleSave = () => {
+
+  toggleSave = () => {
     this.setState({
       saved: !this.state.saved
+    }, ()=> {
+      this.handleSave();
     })
-    if (this.state.saved) {
-      let newBook = {
+  }
+
+
+  handleSave = () => {
+    let savedBooks = this.state.savedBooks;
+    let currentBook = {
+        id: this.props.id,
         image: this.props.imageLink,
         title: this.props.bookTitle,
         author: this.props.bookAuthor,
         publisher: this.props.bookPublisher,
         bookLink: this.props.bookLink
       }
-      let savedBooks = this.state.savedBooks;
-      savedBooks.push(newBook);
-      localStorage.setItem(localStorageKey,JSON.stringify(savedBooks));
-      this.setState({
-        savedBooks: savedBooks
-      })
-
-
+    if (this.state.saved) {
+      let duplicate = false;
+      for (let i = 0; i < savedBooks.length; i++) {
+        if (savedBooks[i].id === currentBook.id) {
+          duplicate = true;
+          break;
+        }
+      }
+      if (!duplicate) {
+        savedBooks.push(currentBook);
+        localStorage.setItem(localStorageKey,JSON.stringify(savedBooks));
+        this.setState({
+          savedBooks: savedBooks
+        })
+      }
+    }
+    else {
+      for (let i = 0; i < savedBooks.length; i++) {
+        if (savedBooks[i].id === currentBook.id) {
+          savedBooks.splice(i, 1);
+          localStorage.setItem(localStorageKey, JSON.stringify(savedBooks));
+          break;
+        }
+      }
     }
   }
   render() {
@@ -51,7 +75,7 @@ class Cards extends Component {
           <a href={this.props.bookLink} target='_blank' rel='noopener noreferrer'>
           <button className='book-link'>See this Book</button></a>
         </div>
-        <div className='save-book' onClick={this.handleSave}>
+        <div className='save-book' onClick={this.toggleSave}>
         {saveIcon}
         </div> 
       </div>

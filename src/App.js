@@ -75,6 +75,7 @@ class App extends Component {
     else if (this.state.items) {
       bookCards = this.state.items.map(item => 
                   <Cards key={item.id} 
+                        id={item.id} 
                         bookTitle={item.volumeInfo.title} 
                         bookAuthor={item.volumeInfo.hasOwnProperty('authors')?
                           item.volumeInfo.authors.join(', ') : 'Unknown'}
@@ -84,6 +85,7 @@ class App extends Component {
                         imageLink={item.volumeInfo.hasOwnProperty('imageLinks')?
                           item.volumeInfo.imageLinks.smallThumbnail : 
                           './img/cover.jpeg'}
+                        saved={false}  
                   />);
     }
     else if (!this.state.items && !this.state.loading) {

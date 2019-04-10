@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Cards from './Cards'
 
+// Clear localStorage
+// localStorage.clear();
 const shelf = []
 const localStorageKey = 'bookFinder_bookShelf';
 if (!localStorage.getItem(localStorageKey)) {
@@ -9,12 +11,14 @@ if (!localStorage.getItem(localStorageKey)) {
 const localBookshelf = JSON.parse(localStorage.getItem(localStorageKey));
 
 const bookCards = localBookshelf.map(item => 
-                  <Cards key={item.title} 
+                  <Cards key={item.id} 
+                        id={item.id} 
                         bookTitle={item.title} 
                         bookAuthor={item.author}
                         bookPublisher={item.publisher}
                         bookLink={item.bookLink}
                         imageLink={item.image}
+                        saved={true}
                   />);
 class Bookshelf extends Component {
   constructor(props) {
