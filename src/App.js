@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import Cards from './Cards'
+import Bookshelf from './Bookshelf'
 
 class App extends Component {
   constructor(props) {
@@ -105,6 +106,7 @@ class App extends Component {
         <div className='book-display'>
           {bookCards}
         </div>
+        <Bookshelf />
       </div>
     );
   }

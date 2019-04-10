@@ -1,16 +1,41 @@
 import React, { Component } from 'react';
 
+const shelf = []
+const localStorageKey = 'bookFinder_bookShelf';
+if (!localStorage.getItem(localStorageKey)) {
+    localStorage.setItem(localStorageKey, JSON.stringify(shelf));
+  }
+const localBookshelf = JSON.parse(localStorage.getItem(localStorageKey));
+
 class Cards extends Component {
   constructor(props) {
     super(props);
     this.state = {
       saved: false,
+      savedBooks: localBookshelf
     };
   }
-  toggleSave = () => {
+  handleSave = () => {
     this.setState({
       saved: !this.state.saved
     })
+    if (this.state.saved) {
+      let newBook = {
+        image: this.props.imageLink,
+        title: this.props.bookTitle,
+        author: this.props.bookAuthor,
+        publisher: this.props.bookPublisher,
+        bookLink: this.props.bookLink
+      }
+      let savedBooks = this.state.savedBooks;
+      savedBooks.push(newBook);
+      localStorage.setItem(localStorageKey,JSON.stringify(savedBooks));
+      this.setState({
+        savedBooks: savedBooks
+      })
+
+
+    }
   }
   render() {
     let saveIcon = this.state.saved?<span>&#9733;</span>:<span>&#9734;</span>;
@@ -26,7 +51,7 @@ class Cards extends Component {
           <a href={this.props.bookLink} target='_blank' rel='noopener noreferrer'>
           <button className='book-link'>See this Book</button></a>
         </div>
-        <div className='save-book' onClick={this.toggleSave}>
+        <div className='save-book' onClick={this.handleSave}>
         {saveIcon}
         </div> 
       </div>
