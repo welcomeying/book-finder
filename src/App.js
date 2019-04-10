@@ -101,7 +101,7 @@ class App extends Component {
           <button className='search-btn' onClick={this.handleInputChange}>Search</button>
         </div>
         {this.state.emptyStr && <div className='error'>Please provide a valid search query!</div>}
-        {this.state.loading && <img src='./img/loading.gif' className='loading-img' />}
+        {this.state.loading && <img src='./img/loading.gif' className='loading-img' alt='loading...'/>}
         <div className='book-display'>
           {bookCards}
         </div>
