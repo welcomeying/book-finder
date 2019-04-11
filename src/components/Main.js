@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import '../App.css';
 import Cards from './Cards';
-import Bookshelf from './Bookshelf';
+import { Route } from 'react-router-dom';
 
 const shelf = []
 const localStorageKey = 'bookFinder_bookShelf';
@@ -102,6 +102,11 @@ class Main extends Component {
     }
     return (
       <div className='App'>
+        <Route render={({history}) => (
+            <span className='bookshelf-link' onClick={() => { history.push('/bookshelf') }}>
+              My Bookshelf
+            </span>
+        )} />
         <header>
           BOOK FINDER
         </header>
@@ -117,7 +122,6 @@ class Main extends Component {
         <div className='book-display'>
           {bookCards}
         </div>
-        <Bookshelf />
       </div>
     );
   }

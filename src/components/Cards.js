@@ -24,7 +24,6 @@ class Cards extends Component {
     })
   }
 
-
   handleSave = () => {
     let savedBooks = this.state.savedBooks;
     let currentBook = {
@@ -56,6 +55,9 @@ class Cards extends Component {
         if (savedBooks[i].id === currentBook.id) {
           savedBooks.splice(i, 1);
           localStorage.setItem(localStorageKey, JSON.stringify(savedBooks));
+          this.setState({
+            savedBooks: savedBooks
+          })
           break;
         }
       }
@@ -63,8 +65,8 @@ class Cards extends Component {
   }
   render() {
     let saveIcon = this.state.saved?
-      <span title='Remove from My Bookshelf' className='gold-star'>&#9733;</span>:
-      <span title='Save to My Bookshelf' className='gold-star'>&#9734;</span>;
+      <span title='Remove from My Bookshelf' className='save-star'>&#9733;</span>:
+      <span title='Save to My Bookshelf' className='save-star'>&#9734;</span>;
     return (
       <div className='book-card'>
         <div className='book-cover'>

@@ -9,8 +9,38 @@ body {
 header{
 	font-size: 35px;
 	color: #0077b3;
-	margin: 20px;
+	margin-top: 50px;
+	margin-bottom: 20px;
 	font-family: 'Montserrat', sans-serif;
+}
+
+.bookshelf-link {
+	font-size: 20px;
+	font-weight: 500;
+	text-decoration: underline;
+	color: #0077b3;
+	margin-top: 20px;
+	position: absolute;
+	right: 20%;
+	top: 0px;
+	cursor: pointer;
+}
+
+h2 {
+	color: #0077b3;
+	margin-top: 50px;
+}
+
+.main-link {
+	font-size: 20px;
+	font-weight: 500;
+	text-decoration: underline;
+	color: #0077b3;
+	margin-top: 20px;
+	position: absolute;
+	left: 10%;
+	top: 0px;
+	cursor: pointer;
 }
 
 input[type=search]::-webkit-search-cancel-button {
@@ -120,10 +150,10 @@ button {
 	cursor: pointer;
 }
 
-.gold-star {
+.save-star {
 	color: #0077b3;
 }
 
-.gold-star:hover{
+.save-star:hover, .bookshelf-link:hover, .main-link:hover{
 	color: #00aaff;
 }

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import Cards from './Cards'
+import Cards from './Cards';
+import { Route } from 'react-router-dom';
 
 // Clear localStorage
 // localStorage.clear();
@@ -31,6 +32,11 @@ class Bookshelf extends Component {
   render() {
     return (
       <div>
+        <Route render={({history}) => (
+            <span className='main-link' onClick={() => { history.push('/') }}>
+              Back to search
+            </span>
+        )} />
         <h2>My Bookshelf</h2>
         <div className='book-display'>
           {bookCards}
