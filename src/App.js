@@ -3,6 +3,15 @@ import './App.css';
 import Cards from './Cards'
 import Bookshelf from './Bookshelf'
 
+const shelf = []
+const localStorageKey = 'bookFinder_bookShelf';
+if (!localStorage.getItem(localStorageKey)) {
+    localStorage.setItem(localStorageKey, JSON.stringify(shelf));
+  }
+const localBookshelf = JSON.parse(localStorage.getItem(localStorageKey));
+// Get saved book id from localBookshelf
+const localBooksId = localBookshelf.map((item) => item.id);
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -85,8 +94,8 @@ class App extends Component {
                         imageLink={item.volumeInfo.hasOwnProperty('imageLinks')?
                           item.volumeInfo.imageLinks.smallThumbnail : 
                           './img/cover.jpeg'}
-                        saved={false}  
-                  />);
+                        saved={localBooksId.indexOf(item.id) !== -1? true : false}  
+                  /> );            
     }
     else if (!this.state.items && !this.state.loading) {
       bookCards = 'No Book Found - Try Another Query';
