@@ -62,7 +62,9 @@ class Cards extends Component {
     }
   }
   render() {
-    let saveIcon = this.state.saved?<span>&#9733;</span>:<span>&#9734;</span>;
+    let saveIcon = this.state.saved?
+      <span title='Remove from My Bookshelf' className='gold-star'>&#9733;</span>:
+      <span title='Save to My Bookshelf' className='gold-star'>&#9734;</span>;
     return (
       <div className='book-card'>
         <div className='book-cover'>
