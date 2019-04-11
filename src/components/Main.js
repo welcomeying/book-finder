@@ -1,7 +1,18 @@
 import React, { Component } from 'react';
-import './App.css';
+import '../App.css';
+import Cards from './Cards';
+import { Route } from 'react-router-dom';
 
-class App extends Component {
+const shelf = []
+const localStorageKey = 'bookFinder_bookShelf';
+if (!localStorage.getItem(localStorageKey)) {
+    localStorage.setItem(localStorageKey, JSON.stringify(shelf));
+  }
+const localBookshelf = JSON.parse(localStorage.getItem(localStorageKey));
+// Get saved book id from localBookshelf
+const localBooksId = localBookshelf.map((item) => item.id);
+
+class Main extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -73,6 +84,7 @@ class App extends Component {
     else if (this.state.items) {
       bookCards = this.state.items.map(item => 
                   <Cards key={item.id} 
+                        id={item.id} 
                         bookTitle={item.volumeInfo.title} 
                         bookAuthor={item.volumeInfo.hasOwnProperty('authors')?
                           item.volumeInfo.authors.join(', ') : 'Unknown'}
@@ -82,13 +94,19 @@ class App extends Component {
                         imageLink={item.volumeInfo.hasOwnProperty('imageLinks')?
                           item.volumeInfo.imageLinks.smallThumbnail : 
                           './img/cover.jpeg'}
-                  />);
+                        saved={localBooksId.indexOf(item.id) !== -1? true : false}  
+                  /> );            
     }
     else if (!this.state.items && !this.state.loading) {
       bookCards = 'No Book Found - Try Another Query';
     }
     return (
       <div className='App'>
+        <Route render={({history}) => (
+            <span className='bookshelf-link' onClick={() => { history.push('/bookshelf') }}>
+              My Bookshelf
+            </span>
+        )} />
         <header>
           BOOK FINDER
         </header>
@@ -100,7 +118,7 @@ class App extends Component {
           <button className='search-btn' onClick={this.handleInputChange}>Search</button>
         </div>
         {this.state.emptyStr && <div className='error'>Please provide a valid search query!</div>}
-        {this.state.loading && <img src='./img/loading.gif' className='loading-img' />}
+        {this.state.loading && <img src='./img/loading.gif' className='loading-img' alt='loading...'/>}
         <div className='book-display'>
           {bookCards}
         </div>
@@ -109,23 +127,5 @@ class App extends Component {
   }
 }
 
-class Cards extends Component {
-  render() {
-    return (
-      <div className='book-card'>
-        <div className='book-cover'>
-          <img className='book-img' src={this.props.imageLink} alt={this.props.bookTitle} />
-        </div>
-        <div className='book-info'>
-          <div className='book-title'>{this.props.bookTitle}</div>
-          <div className='book-author'>By: {this.props.bookAuthor}</div>
-          <div className='book-publisher'>Published By: {this.props.bookPublisher}</div>
-          <a href={this.props.bookLink} target='_blank' rel='noopener noreferrer'>
-          <button className='book-link'>See this Book</button></a>
-        </div>  
-      </div>
-    );
-  }
-}
 
-export default App;
+export default Main;
