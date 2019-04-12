@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { HashRouter as Router, Route, Switch } from "react-router-dom";
 import '../App.css';
 import Main from './Main';
 import Bookshelf from './Bookshelf';
@@ -24,7 +24,7 @@ class App extends Component {
   render(){
     return (
       <main>
-        <Router>
+        <Router basename='/'>
           <Switch>
             <Route exact path='/' 
               render={(props) => <Main {...props} savedBooks={this.state.savedBooks} />}
