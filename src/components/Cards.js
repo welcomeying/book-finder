@@ -1,18 +1,13 @@
 import React, { Component } from 'react';
 
-const shelf = []
 const localStorageKey = 'bookFinder_bookShelf';
-if (!localStorage.getItem(localStorageKey)) {
-    localStorage.setItem(localStorageKey, JSON.stringify(shelf));
-  }
-const localBookshelf = JSON.parse(localStorage.getItem(localStorageKey));
 
 class Cards extends Component {
   constructor(props) {
     super(props);
     this.state = {
       saved: this.props.saved,
-      savedBooks: localBookshelf
+      savedBooks: this.props.savedBooks
     };
   }
 

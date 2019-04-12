@@ -3,15 +3,6 @@ import '../App.css';
 import Cards from './Cards';
 import { Route } from 'react-router-dom';
 
-const shelf = []
-const localStorageKey = 'bookFinder_bookShelf';
-if (!localStorage.getItem(localStorageKey)) {
-    localStorage.setItem(localStorageKey, JSON.stringify(shelf));
-  }
-const localBookshelf = JSON.parse(localStorage.getItem(localStorageKey));
-// Get saved book id from localBookshelf
-const localBooksId = localBookshelf.map((item) => item.id);
-
 class Main extends Component {
   constructor(props) {
     super(props);
@@ -20,7 +11,7 @@ class Main extends Component {
       initialState: true,
       loading: false,
       emptyStr: false,
-      items: null
+      items: null,
     };
   }
 
@@ -74,6 +65,9 @@ class Main extends Component {
   }
 
   render() {
+    const {savedBooks} = this.props;
+    // Get saved book id from savedBooks
+    const localBooksId = savedBooks.map((item) => item.id);
     let bookCards;
     if (this.state.error) {
       bookCards = <div className='error'> Error: Cannot fetch data from Google Books!</div>
@@ -94,7 +88,8 @@ class Main extends Component {
                         imageLink={item.volumeInfo.hasOwnProperty('imageLinks')?
                           item.volumeInfo.imageLinks.smallThumbnail : 
                           './img/cover.jpeg'}
-                        saved={localBooksId.indexOf(item.id) !== -1? true : false}  
+                        saved={localBooksId.indexOf(item.id) !== -1? true : false} 
+                        savedBooks={savedBooks} 
                   /> );            
     }
     else if (!this.state.items && !this.state.loading) {
