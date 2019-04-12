@@ -8,12 +8,14 @@ An application that helps you find book's preview, and a link redirect you to th
 - Display a list of books matching the given query.
 - Each item in the list includes the book's author, title, and publishing company, as well as a picture of the book.
 - From each list item, you are also be able to navigate to more information about the book via a link to Google Books.
+- Bookmarked books and save them to My Bookshelf. Books can also be unbookmarked and removed from My Bookshelf.
 2. It is mobile responsive.
 
 ### Code Dependencies
 The application is built with the following code dependencies:
 - [React](https://github.com/facebook/React)
 - This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+- [React Router](https://reacttraining.com/react-router/)
 - [Google Books API](https://developers.google.com/books/)
 
 ### License
