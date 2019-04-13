@@ -5,7 +5,12 @@ import { Route } from 'react-router-dom';
 class Bookshelf extends Component {
   render() {
     const {savedBooks} = this.props;
-    const bookCards = savedBooks.map(item => 
+    let bookCards;
+    if (savedBooks.length === 0) {
+      bookCards = "Bookshelf is empty - Try Searching For A Book";
+    }
+    else {
+      bookCards = savedBooks.map(item => 
                   <Cards key={item.id} 
                         id={item.id} 
                         bookTitle={item.title} 
@@ -15,7 +20,7 @@ class Bookshelf extends Component {
                         imageLink={item.image}
                         saved={true}
                         savedBooks={savedBooks}
-                  />);
+                  />);}
     return (
       <div>
         <Route render={({history}) => (
