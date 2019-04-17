@@ -1,6 +1,6 @@
 body {
   text-align: center;
-  margin-top: 30px;
+  margin-top: 10px;
   font-family: 'Roboto', sans-serif;
   color: #4d4d4d;
   background: #f2f2f2;
@@ -9,6 +9,61 @@ body {
 .dark-mode {
   background: #404040;
   color: #b3b3b3;
+}
+
+.dark-mode-toggle button{
+	background: none;
+	border: none;
+}
+
+.dark-mode-toggle .sun{
+	color: #ffd11a;
+}
+
+.dark-mode-toggle .moon{
+	color: #33adff;
+}
+
+.toggle-control {
+  position: relative;
+  padding: 0;
+}
+
+input[type='checkbox'].dmcheck {
+  width: 30px;
+  height: 10px;
+  background: #b3b3b3;
+  position: relative;
+  border-radius: 5px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  cursor: pointer;
+  vertical-align: 2px;
+  outline: none;
+
+  &:checked + label {
+    left: 20px;
+  }
+
+  &:focus-visible {
+    outline: solid 2px white;
+  }
+
+  & + label {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: absolute;
+    left: 2px;
+    top: 2px;
+    background: #fff;
+    opacity: 0.9;
+    background-color: lightgray;
+  }
 }
 
 header{

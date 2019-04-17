@@ -4,7 +4,7 @@ class DarkMode extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      darkMode: null
+      darkMode: this.props.darkMode
     };
   }
 
@@ -42,10 +42,13 @@ class DarkMode extends Component {
 
   render() {
     return (
-      <div className="dark-mode-toggle">
-        <button type="button" onClick={this.lightMode}>☀</button>
-        <button type="button" onClick={this.toggleMode}>0</button>
-        <button type="button" onClick={this.darkMode}>☾</button>
+      <div className='dark-mode-toggle'>
+        <button type='button' className='sun' onClick={this.lightMode}>☀</button>
+        <span className='toggle-control'>
+          <input type='checkbox' className="dmcheck" onClick={this.toggleMode} />
+          <label htmlFor="dmcheck" />
+        </span>  
+        <button type='button' className='moon' onClick={this.darkMode}>☾</button>
       </div>
     )
   }

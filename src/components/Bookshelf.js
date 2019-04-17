@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Cards from './Cards';
-import DarkMode from './DarkMode';
 import { Route } from 'react-router-dom';
 
 class Bookshelf extends Component {
@@ -24,7 +23,6 @@ class Bookshelf extends Component {
                   />);}
     return (
       <div>
-        <DarkMode />
         <Route render={({history}) => (
             <span className='main-link' onClick={() => { history.push('/') }}>
               Back to search

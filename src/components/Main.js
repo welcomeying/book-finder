@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import '../App.css';
 import Cards from './Cards';
 import DarkMode from './DarkMode';
 import { Route } from 'react-router-dom';
@@ -13,6 +12,7 @@ class Main extends Component {
       loading: false,
       emptyStr: false,
       items: null,
+      darkMode: false
     };
   }
 
@@ -98,7 +98,7 @@ class Main extends Component {
     }
     return (
       <div className='App'>
-       <DarkMode />
+       <DarkMode darkMode={this.state.darkMode} />
         <Route render={({history}) => (
             <span className='bookshelf-link' onClick={() => { history.push('/bookshelf') }}>
               My Bookshelf

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { HashRouter as Router, Route, Switch } from "react-router-dom";
-import '../App.css';
+import '../App.scss';
 import Main from './Main';
 import Bookshelf from './Bookshelf';
 
@@ -27,10 +27,14 @@ class App extends Component {
         <Router basename='/'>
           <Switch>
             <Route exact path='/' 
-              render={(props) => <Main {...props} savedBooks={this.state.savedBooks} />}
+              render={(props) => <Main {...props} 
+                savedBooks={this.state.savedBooks} />
+              }
             />
             <Route exact path='/bookshelf' 
-              render={(props) => <Bookshelf {...props} savedBooks={this.state.savedBooks} />}
+              render={(props) => <Bookshelf {...props} 
+                savedBooks={this.state.savedBooks} />
+              }
             />
           </Switch>
         </Router>

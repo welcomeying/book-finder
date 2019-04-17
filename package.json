@@ -4,6 +4,7 @@
   "homepage": "http://welcomeying.github.io/book-finder",
   "private": true,
   "dependencies": {
+    "node-sass": "^4.11.0",
     "react": "^16.8.3",
     "react-dom": "^16.8.3",
     "react-router-dom": "^5.0.0",
