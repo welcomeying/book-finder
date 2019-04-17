@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import '../App.css';
 import Cards from './Cards';
+import DarkMode from './DarkMode';
 import { Route } from 'react-router-dom';
 
 class Main extends Component {
@@ -73,7 +74,7 @@ class Main extends Component {
       bookCards = <div className='error'> Error: Cannot fetch data from Google Books!</div>
     }
     else if (this.state.initialState) {
-      bookCards = 'Nothing Here Yet - Try Searching For A Book';
+      bookCards = <div className='null-notice'>Nothing Here Yet - Try Searching For A Book</div>;
     }
     else if (this.state.items) {
       bookCards = this.state.items.map(item => 
@@ -97,6 +98,7 @@ class Main extends Component {
     }
     return (
       <div className='App'>
+       <DarkMode />
         <Route render={({history}) => (
             <span className='bookshelf-link' onClick={() => { history.push('/bookshelf') }}>
               My Bookshelf

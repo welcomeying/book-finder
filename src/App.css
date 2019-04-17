@@ -6,6 +6,11 @@ body {
   background: #f2f2f2;
 }
 
+.dark-mode {
+  background: #404040;
+  color: #b3b3b3;
+}
+
 header{
 	font-size: 35px;
 	color: #0077b3;
@@ -108,6 +113,7 @@ input[type=search]::-webkit-search-cancel-button {
 }
 
 .book-title {
+	color: #4d4d4d;
 	font-size: 17px;
 	font-weight: 500;
 	margin-top: 5px;
