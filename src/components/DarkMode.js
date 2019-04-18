@@ -11,20 +11,20 @@ class DarkMode extends Component {
   }
 
   toggleMode = () => {
-  	localStorage.setItem(localMode, !this.state.darkMode);
-  	this.setState ({
+    localStorage.setItem(localMode, !this.state.darkMode);
+    this.setState ({
       darkMode: !this.state.darkMode
     })
     if (!this.state.darkMode) {
       this.darkMode();
     }
     else {
-    	this.lightMode();
+      this.lightMode();
     }
   }
 
   lightMode = () => {
-  	if (this.state.darkMode) {
+    if (this.state.darkMode) {
       this.setState({
         darkMode: false
       })
@@ -34,7 +34,7 @@ class DarkMode extends Component {
   }
 
   darkMode = () => {
-  	if (!this.state.darkMode) {
+    if (!this.state.darkMode) {
       this.setState ({
         darkMode: true
       })
@@ -45,12 +45,12 @@ class DarkMode extends Component {
   }
 
   componentDidMount() {
-  	if (this.state.darkMode){
-  	  document.body.classList.add('dark-mode');
-  	}
-  	else {
-  	  document.body.classList.remove('dark-mode');
-  	}
+    if (this.state.darkMode){
+      document.body.classList.add('dark-mode');
+    }
+    else {
+      document.body.classList.remove('dark-mode');
+    }
   }
 
   render() {
