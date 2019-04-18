@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import '../App.css';
 import Cards from './Cards';
+import DarkMode from './DarkMode';
 import { Route } from 'react-router-dom';
 
 class Main extends Component {
@@ -11,7 +11,7 @@ class Main extends Component {
       initialState: true,
       loading: false,
       emptyStr: false,
-      items: null,
+      items: null
     };
   }
 
@@ -68,12 +68,13 @@ class Main extends Component {
     const {savedBooks} = this.props;
     // Get saved book id from savedBooks
     const localBooksId = savedBooks.map((item) => item.id);
+    const darkMode = JSON.parse(localStorage.getItem('bookFinder_darkMode'));
     let bookCards;
     if (this.state.error) {
       bookCards = <div className='error'> Error: Cannot fetch data from Google Books!</div>
     }
     else if (this.state.initialState) {
-      bookCards = 'Nothing Here Yet - Try Searching For A Book';
+      bookCards = <div className='null-notice'>Nothing Here Yet - Try Searching For A Book</div>;
     }
     else if (this.state.items) {
       bookCards = this.state.items.map(item => 
@@ -96,7 +97,8 @@ class Main extends Component {
       bookCards = 'No Book Found - Try Another Query';
     }
     return (
-      <div className='App'>
+      <div>
+       <DarkMode darkMode={darkMode} />
         <Route render={({history}) => (
             <span className='bookshelf-link' onClick={() => { history.push('/bookshelf') }}>
               My Bookshelf

@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import Cards from './Cards';
+import DarkMode from './DarkMode';
 import { Route } from 'react-router-dom';
 
 class Bookshelf extends Component {
   render() {
+    const darkMode = JSON.parse(localStorage.getItem('bookFinder_darkMode'));
     const {savedBooks} = this.props;
     let bookCards;
     if (savedBooks.length === 0) {
-      bookCards = "Bookshelf is empty - Try Searching For A Book";
+      bookCards = <div className='null-notice'>Bookshelf is empty - Try Searching For A Book</div>;
     }
     else {
       bookCards = savedBooks.map(item => 
@@ -23,6 +25,7 @@ class Bookshelf extends Component {
                   />);}
     return (
       <div>
+        <DarkMode darkMode={darkMode} />
         <Route render={({history}) => (
             <span className='main-link' onClick={() => { history.push('/') }}>
               Back to search
