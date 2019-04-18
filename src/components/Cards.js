@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-const localStorageKey = 'bookFinder_bookShelf';
+const localBookshelf = 'bookFinder_bookShelf';
 
 class Cards extends Component {
   constructor(props) {
@@ -39,7 +39,7 @@ class Cards extends Component {
       }
       if (!duplicate) {
         savedBooks.push(currentBook);
-        localStorage.setItem(localStorageKey,JSON.stringify(savedBooks));
+        localStorage.setItem(localBookshelf, JSON.stringify(savedBooks));
         this.setState({
           savedBooks: savedBooks
         })
@@ -49,7 +49,7 @@ class Cards extends Component {
       for (let i = 0; i < savedBooks.length; i++) {
         if (savedBooks[i].id === currentBook.id) {
           savedBooks.splice(i, 1);
-          localStorage.setItem(localStorageKey, JSON.stringify(savedBooks));
+          localStorage.setItem(localBookshelf, JSON.stringify(savedBooks));
           this.setState({
             savedBooks: savedBooks
           })

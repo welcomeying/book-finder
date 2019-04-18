@@ -11,8 +11,7 @@ class Main extends Component {
       initialState: true,
       loading: false,
       emptyStr: false,
-      items: null,
-      darkMode: false
+      items: null
     };
   }
 
@@ -69,6 +68,7 @@ class Main extends Component {
     const {savedBooks} = this.props;
     // Get saved book id from savedBooks
     const localBooksId = savedBooks.map((item) => item.id);
+    const darkMode = JSON.parse(localStorage.getItem('bookFinder_darkMode'));
     let bookCards;
     if (this.state.error) {
       bookCards = <div className='error'> Error: Cannot fetch data from Google Books!</div>
@@ -97,8 +97,8 @@ class Main extends Component {
       bookCards = 'No Book Found - Try Another Query';
     }
     return (
-      <div className='App'>
-       <DarkMode darkMode={this.state.darkMode} />
+      <div>
+       <DarkMode darkMode={darkMode} />
         <Route render={({history}) => (
             <span className='bookshelf-link' onClick={() => { history.push('/bookshelf') }}>
               My Bookshelf
