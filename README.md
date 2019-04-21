@@ -9,6 +9,7 @@ An application that helps you find book's preview, and a link redirect you to th
 - Each item in the list includes the book's author, title, and publishing company, as well as a picture of the book.
 - From each list item, you are also be able to navigate to more information about the book via a link to Google Books.
 - Bookmarked books and save them to My Bookshelf. Books can also be unbookmarked and removed from My Bookshelf.
+- Switch between light mode and dark mode by clicking one button.
 2. It is mobile responsive.
 
 ### Code Dependencies
