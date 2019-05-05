@@ -6,11 +6,12 @@ body {
   background: #f2f2f2;
 }
 
+
 .dark-mode {
   background: #404040;
   color: #b3b3b3;
 }
-
+ 
 .dark-mode-toggle button{
 	background: none;
 	border: none;
@@ -206,7 +207,7 @@ button {
 .save-book {
 	position: absolute;
 	top: 5px;
-	left: 355px;
+	left: 192px;
 	font-size: 25px;
 	cursor: pointer;
 }
@@ -217,4 +218,43 @@ button {
 
 .save-star:hover, .bookshelf-link:hover, .main-link:hover{
 	color: #00aaff;
+}
+
+@media only screen and (max-width: 419px) {
+	.book-card {
+		width: 100%;
+		padding-top: 155%;
+		position: relative;
+	}
+	.book-cover {
+
+	}
+	.book-img { 
+		position: absolute;
+		top: 2%;
+		left: 18%;
+		width: 58vw;
+		height: 80vw;
+	}
+	.book-info {
+		position: absolute;
+		text-align: center;
+		top: 62%;
+		left: 20px;
+		width: 90%;
+	}
+	.book-link {
+		left: 25vw;
+	}
+	.save-book {
+		position: absolute;
+		top: -25px;
+		left: 40vw;
+	}
+	.bookshelf-link {
+		margin-top: 0px;
+		right: 20px;
+		top: 5px;
+		font-size: 18px;
+	}
 }
