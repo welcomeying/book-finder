@@ -11,7 +11,8 @@ class Main extends Component {
       initialState: true,
       loading: false,
       emptyStr: false,
-      items: null
+      items: null,
+      startIndex: 0
     };
   }
 
@@ -23,7 +24,7 @@ class Main extends Component {
     })
     let query = this.search.value.trim().replace(' ','+')
     if (query){
-      fetch(`https://www.googleapis.com/books/v1/volumes?q=${query}&maxResults=20`)
+      fetch(`https://www.googleapis.com/books/v1/volumes?q=${query}&maxResults=12&startIndex=${this.state.startIndex}`)
       .then(res => res.json())
       .then(
         (result) => {
@@ -58,6 +59,28 @@ class Main extends Component {
     }
   }
 
+  handleSearch = () => {
+    this.setState({
+      startIndex: 0 // Reset startIndex to 0
+    },() => this.handleInputChange())
+  }
+
+  handleNext = () => {
+    this.setState({
+      startIndex: this.state.startIndex + 12 // Increase startIndex by 12
+    }, () => {
+      this.handleInputChange();
+    })
+  }
+
+  handleBack = () => {
+    this.setState({
+      startIndex: this.state.startIndex - 12 // Decrease startIndex by 12
+    }, () => {
+      this.handleInputChange();
+    })
+  }
+
   emptyResults = () => {
     this.setState = {
       initialState: true
@@ -69,7 +92,7 @@ class Main extends Component {
     // Get saved book id from savedBooks
     const localBooksId = savedBooks.map((item) => item.id);
     const darkMode = JSON.parse(localStorage.getItem('bookFinder_darkMode'));
-    let bookCards;
+    let bookCards, nextSearch, backSearch;
     if (this.state.error) {
       bookCards = <div className='error'> Error: Cannot fetch data from Google Books!</div>
     }
@@ -91,10 +114,14 @@ class Main extends Component {
                           './img/cover.jpeg'}
                         saved={localBooksId.indexOf(item.id) !== -1? true : false} 
                         savedBooks={savedBooks} 
-                  /> );            
+                  /> );  
+      nextSearch = 'Next';                      
     }
     else if (!this.state.items && !this.state.loading) {
       bookCards = 'No Book Found - Try Another Query';
+    }
+    if (this.state.startIndex > 0) {
+      backSearch = 'Back';
     }
     return (
       <div>
@@ -112,12 +139,16 @@ class Main extends Component {
           placeholder='Search by book title or author...' 
           ref={input => this.search = input}
           onKeyPress={this._handleKeyPress} />
-          <button className='search-btn' onClick={this.handleInputChange}>Search</button>
+          <button className='search-btn' onClick={this.handleSearch}>Search</button>
         </div>
         {this.state.emptyStr && <div className='error'>Please provide a valid search query!</div>}
         {this.state.loading && <img src='./img/loading.gif' className='loading-img' alt='loading...'/>}
         <div className='book-display'>
           {bookCards}
+        </div>
+        <div className='back-next-search'>
+          <div className='back-search' onClick={this.handleBack}>{backSearch}</div>
+          <div className='next-search' onClick={this.handleNext}>{nextSearch}</div>
         </div>
       </div>
     );
