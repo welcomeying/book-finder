@@ -17,6 +17,7 @@ class Main extends Component {
   }
 
   handleInputChange = () => {
+    window.scrollTo(0, 0); // Scroll to the top
     this.setState({
       initialState: false,
       loading: true,
@@ -52,10 +53,13 @@ class Main extends Component {
       })
     }
   }
-
+  
+  // Enter key to search
   _handleKeyPress = (e) => {
     if (e.key === 'Enter') {
-      this.handleInputChange();
+      this.setState({
+        startIndex: 0 // Reset startIndex to 0
+      },() => this.handleInputChange())
     }
   }
 
