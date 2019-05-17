@@ -60,8 +60,10 @@ class Cards extends Component {
   }
   render() {
     let saveIcon = this.state.saved?
-      <span title='Remove from My Bookshelf' className='save-star'>&#9733;</span>:
-      <span title='Save to My Bookshelf' className='save-star'>&#9734;</span>;
+      <div><span className='save-star'>&#9733;</span>
+      <span class="tooltiptext">Remove from Bookshelf</span></div>:
+      <div><span className='save-star'>&#9734;</span>
+      <span class="tooltiptext">Save to Bookshelf</span></div>;
     return (
       <div className='book-card'>
         
