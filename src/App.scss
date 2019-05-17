@@ -240,8 +240,39 @@ button {
 	color: #0077b3;
 }
 
+.tooltiptext {
+	font-size: 12px;
+}
 .save-star:hover, .bookshelf-link:hover, .main-link:hover{
 	color: #00aaff;
+}
+
+.save-book .tooltiptext {
+	visibility: hidden;
+	background-color: #d9d9d9;
+	color: #4d4d4d;
+	text-align: center;
+ 	border-radius: 5px;
+	padding: 2px 5px 2px 5px;
+	position: absolute;
+	z-index: 1;
+	bottom: 100%;
+	right: -10px;
+}
+
+// Bottom Arrow
+.save-book .tooltiptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;  /* At the bottom of the tooltip */
+  left: 65%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #d9d9d9 transparent transparent transparent ;
+}
+.save-book:hover .tooltiptext {
+	visibility: visible;
 }
 
 footer {
