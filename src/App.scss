@@ -140,7 +140,7 @@ input[type=search]::-webkit-search-cancel-button {
 .book-display {
 	display: flex;
 	margin-top: 30px;
-	margin-bottom: 50px;
+	margin-bottom: 80px;
 	flex-wrap: wrap;
 	justify-content: center;
 	font-weight: 500;
@@ -207,6 +207,25 @@ button {
 	color: #ffffff;
 	font-weight: 500;
 	cursor: pointer;
+}
+
+.back-next-search {
+	cursor: pointer;
+	font-size: 1.2em;
+	font-weight: 500;
+	color: #0077b3;
+	.next-search {
+		position: absolute;
+		bottom: 60px;
+		right: 10vw;
+		text-decoration: underline;
+	}
+	.back-search {
+		position: absolute;
+		bottom: 60px;
+		left: 10vw;
+		text-decoration: underline;
+	}
 }
 
 .save-book {
